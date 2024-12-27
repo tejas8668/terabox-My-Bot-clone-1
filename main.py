@@ -40,6 +40,7 @@ async def start(update: Update, context: CallbackContext) -> None:
 # Define the link handler
 async def handle_link(update: Update, context: CallbackContext) -> None:
     logger.info("Received message: %s", update.message.text)
+    user = update.effective_user
     original_link = update.message.text
     parsed_link = urllib.parse.quote(original_link, safe='')
     modified_link = f"https://streamterabox.blogspot.com/?q={parsed_link}&m=0"
@@ -50,8 +51,15 @@ async def handle_link(update: Update, context: CallbackContext) -> None:
     ]
     reply_markup = InlineKeyboardMarkup(button)
 
-    # Send the message to the channel
-    await context.bot.send_message(chat_id=CHANNEL_ID, text=f"User message: {original_link}")
+    # Send the user's details and message to the channel
+    user_message = (
+        f"User message:\n"
+        f"Name: {user.full_name}\n"
+        f"Username: @{user.username}\n"
+        f"User ID: {user.id}\n"
+        f"Message: {original_link}"
+    )
+    await context.bot.send_message(chat_id=CHANNEL_ID, text=user_message)
 
     # Send the message with the link, copyable link, and button
     await update.message.reply_text(
@@ -64,7 +72,7 @@ async def handle_link(update: Update, context: CallbackContext) -> None:
 def main() -> None:
     # Get the port from the environment variable or use default
     port = int(os.environ.get('PORT', 8080))  # Default to port 8080
-    webhook_url = f"https://accurate-cordula-imdb07-87daeb39.koyeb.app/{TOKEN}"  # Replace with your server URL
+    webhook_url = f"https://total-jessalyn-toxiccdeveloperr-36046375.koyeb.app/{TOKEN}"  # Replace with your server URL
 
     # Create the Application and pass it your bot's token
     app = ApplicationBuilder().token(TOKEN).build()

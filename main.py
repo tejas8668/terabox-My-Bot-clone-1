@@ -11,12 +11,21 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Get the bot token from environment variables
+# Get the bot token and channel ID from environment variables
 TOKEN = os.getenv('BOT_TOKEN')
+CHANNEL_ID = os.getenv('CHANNEL_ID')
 
 # Define the /start command handler
 async def start(update: Update, context: CallbackContext) -> None:
     logger.info("Received /start command")
+    user = update.effective_user
+    message = (
+        f"New user started the bot:\n"
+        f"Name: {user.full_name}\n"
+        f"Username: @{user.username}\n"
+        f"User ID: {user.id}"
+    )
+    await context.bot.send_message(chat_id=CHANNEL_ID, text=message)
     await update.message.reply_photo(
         photo='https://ik.imagekit.io/dvnhxw9vq/unnamed.png?updatedAt=1735280750258',  # Replace with your image URL
         caption=(
@@ -40,6 +49,9 @@ async def handle_link(update: Update, context: CallbackContext) -> None:
         [InlineKeyboardButton("Stream Link", url=modified_link)]
     ]
     reply_markup = InlineKeyboardMarkup(button)
+
+    # Send the message to the channel
+    await context.bot.send_message(chat_id=CHANNEL_ID, text=f"User message: {original_link}")
 
     # Send the message with the link, copyable link, and button
     await update.message.reply_text(

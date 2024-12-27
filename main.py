@@ -15,10 +15,17 @@ logger = logging.getLogger(__name__)
 TOKEN = os.getenv('BOT_TOKEN')
 CHANNEL_ID = os.getenv('CHANNEL_ID')
 
+# In-memory storage for user tracking
+users = set()
+
 # Define the /start command handler
 async def start(update: Update, context: CallbackContext) -> None:
     logger.info("Received /start command")
     user = update.effective_user
+
+    # Add user to the set
+    users.add(user.id)
+
     message = (
         f"New user started the bot:\n"
         f"Name: {user.full_name}\n"
@@ -37,10 +44,20 @@ async def start(update: Update, context: CallbackContext) -> None:
         parse_mode='Markdown'
     )
 
+# Define the /users command handler
+async def users_count(update: Update, context: CallbackContext) -> None:
+    logger.info("Received /users command")
+    user_count = len(users)
+    await update.message.reply_text(f"Total users who have interacted with the bot: {user_count}")
+
 # Define the link handler
 async def handle_link(update: Update, context: CallbackContext) -> None:
     logger.info("Received message: %s", update.message.text)
     user = update.effective_user
+
+    # Add user to the set
+    users.add(user.id)
+
     original_link = update.message.text
     parsed_link = urllib.parse.quote(original_link, safe='')
     modified_link = f"https://streamterabox.blogspot.com/?q={parsed_link}&m=0"
@@ -80,6 +97,9 @@ def main() -> None:
     # Register the /start command handler
     app.add_handler(CommandHandler("start", start))
 
+    # Register the /users command handler
+    app.add_handler(CommandHandler("users", users_count))
+
     # Register the link handler
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_link))
 
@@ -91,5 +111,5 @@ def main() -> None:
         webhook_url=webhook_url
     )
 
-if __name__ == '__main__':
+if __name__ == '__': '__main__':
     main()

@@ -111,5 +111,5 @@ def main() -> None:
         webhook_url=webhook_url
     )
 
-if __name__ == '__': '__main__':
+if __name__ == '__main__':
     main()

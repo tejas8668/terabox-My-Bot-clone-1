@@ -64,7 +64,7 @@ async def handle_link(update: Update, context: CallbackContext) -> None:
     if 'http://' in original_link or 'https://' in original_link:
         parsed_link = urllib.parse.quote(original_link, safe='')
         modified_link = f"https://streamterabox.blogspot.com/?q={parsed_link}&m=0"
-        modified_url = f"https://demobox11.blogspot.com/2024/12/terabox.html?q={parsed_link}"
+        modified_url = f"https://streamterabox.blogspot.com/2024/12/terabox-player.html?q={parsed_link}"
 
         # Create a button with the modified link
         button = [

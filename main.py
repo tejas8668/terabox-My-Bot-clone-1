@@ -82,8 +82,7 @@ async def handle_link(update: Update, context: CallbackContext) -> None:
 
     # Send the message with the link, copyable link, and button
     await update.message.reply_text(
-        f"👇👇 𝐓𝐚𝐩 𝐀𝐧𝐝 𝐂𝐨𝐩𝐲 𝐓𝐡𝐢𝐬 𝐔𝐫𝐥 𝐀𝐧𝐝 𝐏𝐚𝐬𝐭𝐞 𝐈𝐧 𝐂𝐡𝐫𝐨𝐦𝐞 𝐅𝐨𝐫 𝐔𝐬𝐞 𝐌𝐲 𝐀𝐥𝐥 𝐅𝐞𝐚𝐭𝐮𝐫𝐞𝐬 👇👇\n\n♥ Your Stream Link ♥\n\n`{modified_link}`\n\n"
-        "𝐔𝐬𝐞 𝐆𝐨𝐨𝐠𝐥𝐞 𝐂𝐡𝐫𝐨𝐦𝐞 𝐅𝐨𝐫 𝐏𝐥𝐚𝐲 𝐕𝐢𝐝𝐞𝐨 𝐈𝐧 𝐅𝐮𝐥𝐥 𝐒𝐜𝐫𝐞𝐞𝐧",
+        f"👇👇 YOUR VIDEO LINK IS READY,\USE THIS SERVERS 👇👇\n\n♥ 👇Your Stream Link👇 ♥\n",
         reply_markup=reply_markup,
         parse_mode='Markdown'
     )

@@ -90,7 +90,7 @@ async def handle_link(update: Update, context: CallbackContext) -> None:
             parse_mode='Markdown'
         )
     else:
-        await update.message.reply_text("Please send a valid http or https link.")
+        await update.message.reply_text("Please send Me Only TeraBox Link.")
 
 def main() -> None:
     # Get the port from the environment variable or use default
